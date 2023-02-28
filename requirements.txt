@@ -1,0 +1,5 @@
+1. Dùng browser để giao tiếp (tự thiết kế ứng dụng)
+2. Kết quả
+	2.1. Video demo: demo chương trình
+	2.2. Word (báo cáo: làm những gì dựa trên tài liệu)
+	2.3. Source code
