@@ -1,0 +1,70 @@
+I. Một số thuật ngữ
+- Blob = File
+- Tree = Directory (đường dẫn)
+- Hash function (cốt lõi của Git): có thể liên tưởng tới màu nước
+    + là hàm 1 chiều: chắc chắn phải có input nhưng KHÔNG THỂ TÌM INPUT
+    + là đơn ánh
+    + 2 hàm phổ biến: MD5, SHA1
+    + để đánh giá độ tốt của hàm Hash, chúng ta có chỉ số collision probability
+- Commit = Version của source code
+- Nội dung file thay đổi kéo theo mã hash của Tree lớn nhất cũng thay đổi (theo phản ứng domino) --> Tạo ra 1 Commit hoàn toàn mới
+- Commit mới chỉ lưu những thay đổi, tức là, những file nào giữ nguyên sẽ ko được lưu lại nữa.
+- Branch = Danh sách các Commit liên kết với nhau. Nhánh mặc định: Master
+- Biểu diễn Branch bằng 1 con trỏ đến Commit mới nhất
+- Có thể sử dụng 1 con trỏ khác (Head) để xác định mình đang nằm ở Branch nào
+
+II. Các lệnh cơ bản
+git init: tạo file .git trong thư mục hiện thời
+touch <file-name>
+ls -a: show tất cả file/thư mục con
+rm -rf .git: xóa file .git
+git add .: thêm tất cả file vào staging area
+git commit -m <message>: thêm comment cho commit (các thông tin cần thiết)
+git log: xem thông tin các commit mà mình đã tạo ra
+- Khi đang thay đổi nội dung file thì VSC tự động bôi màu
+- Sau khi commit thì tự đổi màu thành màu trắng
+- Thứ tự thực hiện:
+    1. Chỉnh sửa file
+    2. Dùng git add . thêm các thay đổi mới nhất vào staging area
+    3. Dùng git commit để tạo commit mới
+    4. Dùng git log để xem các commit
+git branch <branch-name>: tạo branch
+git checkout <branch-name>: switch to new branch
+git merge <branch-name>: merge branch-name vào current branch
+	* có thể xảy ra merge conflict
+
+III. Đưa git lên online
+- Điều đầu tiên: cần biết địa chỉ cần đưa đến
+git remote add origin https://github.com/minhquanBr2/HCMUS_DSA_Homework.git
+*origin đóng vai trò alias (tên thay thế) cho địa chỉ dài phía sau
+git remote get-url origin: lấy url đc chứa trong tên origin
+git remove rm origin: xóa url chứa trong origin
+
+git push <link> <branch>
+git push origin <branch>. vd: git push origin master
+git push <git-lab link> <branch> thì push lên git-lab
+
+git clone https://github.com/minhquanBr2/1stTest.git: clone 1 thư mục về offline
+git pull origin <branch>. vd: git pull origin master: tương tự clone nhưng giúp update các thay đổi mới nhất từ online về offline
+Chú ý khi sử dụng:
+- giả sử trên github có 1 repos là 1stTest
+    1. Nếu sử dụng clone thì nó sẽ tạo 1 thư mục 1stTest mới hoàn toàn bên trong thư mục hiện thời
+    2. Nếu sử dụng pull thì nó sẽ tìm và thay đổi các file tương ứng trong thư mục hiện thời
+    3. Đối với push và pull: nhớ nêu rõ: REPOS cần lấy và NHÁNH cần lấy
+    4. Đối với clone: chỉ cần nêu REPOS cần lấy
+
+IV. Chỉnh sửa code từ máy local và push lên repos chung:
+1. git branch <new-branch-name>: tạo branch mới
+2. git checkout <new-branch-name>: chuyển branch ở local sang new-branch
+3. git add .
+4. git commit -m <description>: commit các thay đổi tại new-branch
+5. git push origin new-branch: push new-branch này lên repos
+Lúc này chủ repos sẽ nhận được thông báo vừa có commit mới lên new-branch. 
+Người dùng cần tạo pull request và mô tả mục đích của pull request này để đợi chủ repos chấp nhận và merge vào branch chính.
+Các user khác: git pull origin master để cập nhật những thay đổi mới nhất
+
+
+V. FORK
+- Trong trường hợp chủ repos không cấp quyền để user clone về và chỉnh sửa, user phải fork (copy) repos về tài khoản của mình, thực hiện các chỉnh sửa trên đó.
+- Sau khi user push các thay đổi lên repos của họ thì ở phía chủ repos, người này cũng nhận được các pull request tương tự.
+Và họ quyết định xem có merge sự thay đổi đó với repos gốc hay không
