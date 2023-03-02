@@ -1,6 +1,7 @@
 import openai
+import config
 
-openai.api_key = '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'
+openai.api_key = config.api_key
 model_engine = 'text-davinci-003'
 
 def getResponse(user_prompt):

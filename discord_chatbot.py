@@ -1,5 +1,6 @@
-import chat_gpt_helper as gpt
+import chatbot_helper as gpt
 import discord
+import config
 
 greetings = ['hello', 'hi', 'yo', 'sup']
 greetings = tuple(greetings)
@@ -23,7 +24,7 @@ async def on_message(message):
         response = gpt.getResponse(message.content)
         await message.channel.send(response)
 
-client.run('MTA3OTU4NjQ0NzcwODkxNzc3MQ.GES9FX.cXfAGvXSUz2A-y_2YnL7-aNY4-va8fFToyGCew')
+client.run(config.discord_key)
 
 
 

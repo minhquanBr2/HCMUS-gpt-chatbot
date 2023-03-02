@@ -1,8 +1,9 @@
 import openai
 import time
 import numpy as np
+import config
 
-openai.api_key = "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"
+openai.api_key = config.api_key
 prompts = [
     "Hi, how can I help you today?",
     "What brings you here?",
@@ -15,7 +16,7 @@ def generate_response(prompt):
         engine="text-davinci-003",
         prompt=prompt,
         temperature=0.7,
-        max_tokens=100,
+        max_tokens=1024,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
@@ -23,8 +24,9 @@ def generate_response(prompt):
     time.sleep(1)
     return response.choices[0].text.strip()
 
-file_description = open("chatbot_description.txt", "r+")
-description = file_description.read()
+file_script = open("chatbot_script.txt", "r+")
+file_train = open("chatbot_train.txt", "r+")
+description = file_script.read() + file_train.read()
 prompt = ""
 history = ""
 prompt_id = int(np.random.randint((len(prompts))))
@@ -40,4 +42,7 @@ while True:
     print("Brend: ", response)
     history += response
     
- 
+
+file_script.close()
+file_train.close()
+
